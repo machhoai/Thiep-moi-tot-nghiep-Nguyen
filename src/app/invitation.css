@@ -1,0 +1,224 @@
+/* The Canva canvas is 576 px wide. Each unit scales with the invitation, not the surrounding window. */
+.invitation {
+  --u: 0.173611111cqw;
+  --canvas: #fffcfb;
+  --card-ink: #1d2b6e;
+  --card-blue: #042b91;
+  --card-pink: #d66a91;
+  --card-serif: "Noto Serif Variable", Georgia, serif;
+
+  width: min(100%, 576px);
+  margin-inline: auto;
+  container-type: inline-size;
+  background: var(--canvas);
+  color: var(--card-ink);
+  font: 400 18px/1.35 var(--card-serif);
+  text-align: center;
+}
+
+.invitation h1, .invitation h2 {
+  color: inherit;
+  font-family: inherit;
+  font-weight: 400;
+}
+
+.card-cover, .card-footer { background: var(--card-ink); color: white; }
+.card-cover-top {
+  display: grid;
+  place-items: center;
+  min-height: calc(87 * var(--u));
+  font-size: calc(37.33 * var(--u));
+  letter-spacing: .143em;
+  text-transform: uppercase;
+}
+.card-cover-image, .card-campus { position: relative; }
+.card-cover-image { aspect-ratio: 576 / 581; }
+.card-campus { aspect-ratio: 576 / 285; }
+.card-cover-image img, .card-campus img { object-fit: cover; }
+.card-cover-bottom {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  min-height: calc(142 * var(--u));
+  padding: calc(14 * var(--u)) calc(16 * var(--u));
+  gap: calc(6 * var(--u));
+}
+.card-cover-bottom span:first-child { font-size: calc(52 * var(--u)); font-style: italic; line-height: 1.32; }
+.card-cover-bottom span:last-child { color: #fce8ee; font-size: calc(26.67 * var(--u)); letter-spacing: .15em; text-transform: uppercase; }
+
+.card-event-copy { padding: calc(48 * var(--u)) calc(20 * var(--u)) calc(53 * var(--u)); }
+.card-invite-label { font-size: calc(32 * var(--u)); letter-spacing: .089em; text-transform: uppercase; }
+.card-invite-line { width: 57%; height: 1px; margin: calc(33 * var(--u)) auto calc(35 * var(--u)); background: currentColor; }
+.card-invite-intro { font-size: max(13px, calc(22 * var(--u))); text-transform: uppercase; }
+.card-event h1 {
+  width: fit-content;
+  max-width: 100%;
+  margin: calc(29 * var(--u)) auto calc(19 * var(--u));
+  background: linear-gradient(95deg, #43d1dc, #0045a9);
+  background-clip: text;
+  color: transparent;
+  font-size: calc(49.33 * var(--u));
+  line-height: 1.23;
+  font-style: italic;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+.card-event-time {
+  color: var(--card-blue);
+  font-size: max(12px, calc(18.67 * var(--u)));
+  letter-spacing: .071em;
+}
+.card-date {
+  display: grid;
+  grid-template-columns: 1fr 36% 1fr;
+  margin-top: calc(18 * var(--u));
+  color: var(--card-blue);
+  font-size: calc(20 * var(--u));
+}
+.card-date span { border-top: 1px solid currentColor; padding-top: calc(9 * var(--u)); }
+.card-date strong { font-size: calc(40 * var(--u)); font-weight: 400; line-height: 1.22; }
+.card-venue { margin-top: calc(46 * var(--u)); overflow-wrap: anywhere; }
+.card-venue p { font-size: calc(22.67 * var(--u)); font-style: italic; }
+.card-venue strong { display: block; font-size: max(12px, calc(20 * var(--u))); line-height: 1.24; letter-spacing: .043em; }
+.card-venue strong:last-child { font-size: max(14px, calc(25.33 * var(--u))); }
+.card-venue a { display: block; margin-top: calc(12 * var(--u)); font-size: max(13px, calc(20 * var(--u))); line-height: 1.17; }
+.card-venue a:hover { text-decoration: underline; text-underline-offset: .16em; }
+
+.card-ornament { display: flex; align-items: center; justify-content: center; gap: calc(45 * var(--u)); padding-block: calc(23 * var(--u)); }
+.card-ornament span { width: calc(92 * var(--u)); height: 1px; background: currentColor; }
+.card-ornament i { width: calc(20 * var(--u)); aspect-ratio: 1; border: 1px solid currentColor; transform: rotate(45deg); }
+.card-calendar { margin: calc(48 * var(--u)) calc(38 * var(--u)) 0; }
+.invitation .card-italic-title { font-size: calc(40 * var(--u)); font-style: italic; line-height: 1.3; }
+.card-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: center;
+  margin-top: calc(10 * var(--u));
+  grid-auto-rows: calc(34 * var(--u));
+  font-size: max(12px, calc(16 * var(--u)));
+}
+.card-calendar-grid span { position: relative; }
+.card-calendar-grid .card-weekday { align-self: start; font: 500 max(9px, calc(13 * var(--u)))/1.4 var(--sans); }
+.card-calendar-grid .card-weekday-date { color: #8cb8d3; }
+.card-calendar-grid [aria-current="date"]::after {
+  content: "";
+  position: absolute;
+  width: calc(58 * var(--u));
+  height: calc(45 * var(--u));
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url("/assets/images/ornaments/date-ring.png") center / contain no-repeat;
+  pointer-events: none;
+}
+
+.card-agenda { margin: calc(65 * var(--u)) calc(34 * var(--u)) 0; }
+.card-agenda ol { position: relative; margin: calc(21 * var(--u)) 0 0; padding: 0; list-style: none; }
+.card-agenda ol::before { position: absolute; inset: 0 auto 0 50%; content: ""; width: 1px; background: currentColor; transform: translateX(-50%); }
+.card-agenda li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: calc(93 * var(--u));
+  gap: calc(30 * var(--u));
+  text-align: left;
+  align-items: start;
+}
+.card-agenda li:nth-child(even) { text-align: right; }
+.card-agenda li:nth-child(even) div { grid-row: 1; grid-column: 1; }
+.card-agenda li:nth-child(even) img { grid-column: 2; justify-self: start; }
+.card-agenda-icon { width: calc(78 * var(--u)); height: auto; margin-top: calc(8 * var(--u)); justify-self: end; }
+.card-agenda time { display: block; font-size: max(14px, calc(22.67 * var(--u))); line-height: 1.22; }
+.card-agenda p { margin-top: calc(4 * var(--u)); font-size: max(12px, calc(17.33 * var(--u))); overflow-wrap: anywhere; }
+
+.card-countdown { padding: calc(59 * var(--u)) calc(36 * var(--u)) 0; }
+.card-countdown h2 { font-size: calc(36 * var(--u)); letter-spacing: .061em; line-height: 1.3; }
+.countdown-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: calc(18 * var(--u)); margin-top: calc(20 * var(--u)); }
+.countdown-grid > div { display: grid; gap: calc(6 * var(--u)); }
+.countdown-grid strong {
+  display: grid;
+  place-items: center;
+  min-height: calc(89 * var(--u));
+  border: 1px solid currentColor;
+  border-radius: calc(17 * var(--u));
+  background: #fff9f7;
+  font: 400 calc(33.33 * var(--u))/1 var(--sans);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+.countdown-grid span { font-size: max(13px, calc(18.67 * var(--u))); }
+.countdown-status { margin-top: calc(25 * var(--u)); font-size: max(15px, calc(22 * var(--u))); }
+.card-countdown::after { display: block; content: ""; width: 84%; height: 1px; margin: calc(32 * var(--u)) auto 0; background: currentColor; }
+
+.card-letter { padding: calc(56 * var(--u)) calc(35 * var(--u)) 0; }
+.card-letter h2 { font-size: calc(25.33 * var(--u)); letter-spacing: .063em; text-transform: uppercase; line-height: 1.3; }
+.card-letter > div { margin-top: calc(10 * var(--u)); text-align: justify; font-size: max(13px, calc(17.33 * var(--u))); font-style: italic; line-height: 1.43; }
+.card-letter > div p { white-space: pre-line; overflow-wrap: anywhere; }
+.card-letter > div p + p { margin-top: calc(25 * var(--u)); }
+.card-dedication { margin-top: calc(13 * var(--u)); color: var(--card-pink); font-size: max(14px, calc(20 * var(--u))); }
+
+.card-rsvp { margin: calc(59 * var(--u)) calc(54 * var(--u)) calc(30 * var(--u)); }
+.card-rsvp h2 { font-size: calc(30.67 * var(--u)); letter-spacing: .048em; text-transform: uppercase; line-height: 1.28; }
+.card-rsvp > div > p { margin: calc(15 * var(--u)) auto 0; font-size: max(13px, calc(17.33 * var(--u))); }
+.card-rsvp .rsvp-form {
+  display: grid;
+  gap: calc(16 * var(--u));
+  margin-top: calc(53 * var(--u));
+}
+.card-rsvp .rsvp-form input, .card-rsvp .rsvp-form textarea, .card-rsvp .rsvp-form select {
+  width: 100%;
+  min-height: max(44px, calc(51 * var(--u)));
+  padding-inline: calc(21 * var(--u));
+  border: 1px solid currentColor;
+  border-radius: calc(19 * var(--u));
+  background: var(--canvas);
+  color: var(--card-ink);
+  font: 400 max(16px, calc(16.67 * var(--u)))/1.4 var(--card-serif);
+}
+.card-rsvp .rsvp-form textarea { min-height: calc(132 * var(--u)); padding-top: calc(17 * var(--u)); }
+.card-rsvp .rsvp-form :is(input, textarea)::placeholder { color: #729cb9; }
+.card-rsvp .card-select { position: relative; }
+.card-rsvp .card-select select { appearance: none; padding-right: calc(44 * var(--u)); }
+.card-rsvp .card-select select:invalid { color: #729cb9; border-color: var(--card-ink); }
+.card-rsvp .card-select option { color: var(--card-ink); }
+.card-rsvp .card-select::after { content: "▾"; position: absolute; inset: 50% calc(24 * var(--u)) auto auto; transform: translateY(-50%); pointer-events: none; }
+.card-rsvp .button {
+  min-height: max(44px, calc(55 * var(--u)));
+  border: 1px solid var(--card-ink);
+  border-radius: calc(16 * var(--u));
+  background: var(--card-ink);
+  color: white;
+  font: 400 max(18px, calc(28 * var(--u)))/1.2 var(--card-serif);
+}
+.card-rsvp .button:hover { background: #263e8b; }
+.card-rsvp .confirmation { display: flex; align-items: center; gap: 10px; text-align: left; min-height: 90px; margin-top: 20px; padding: 16px; border: 1px solid var(--card-ink); border-radius: 12px; }
+.card-rsvp .confirmation svg { flex: none; }
+
+.card-album-section { margin: calc(11 * var(--u)) calc(36 * var(--u)) calc(29 * var(--u)); }
+.card-album { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(12 * var(--u)); }
+.card-album figure { position: relative; aspect-ratio: 3 / 4; border: max(2px, calc(4 * var(--u))) solid var(--card-blue); overflow: hidden; }
+.card-album img { object-fit: cover; }
+.card-album-mosaic::before { content: ""; grid-column: 1 / -1; height: calc(583 * var(--u)); }
+.card-album-mosaic { position: relative; }
+.card-album-mosaic [data-album-slot] { position: absolute; left: calc(var(--x) * var(--u)); top: calc(var(--y) * var(--u)); width: calc(var(--w) * var(--u)); height: calc(var(--h) * var(--u)); }
+.card-album [data-album-slot="1"] { --x: 0; --y: 0; --w: 132; --h: 177; }
+.card-album [data-album-slot="2"] { --x: 143; --y: 81; --w: 144; --h: 192; }
+.card-album [data-album-slot="3"] { --x: 370; --y: 0; --w: 140; --h: 177; }
+.card-album [data-album-slot="4"] { --x: 0; --y: 194; --w: 132; --h: 178; }
+.card-album [data-album-slot="5"] { --x: 215; --y: 284; --w: 142; --h: 177; }
+.card-album [data-album-slot="6"] { --x: 370; --y: 193; --w: 140; --h: 180; }
+.card-album [data-album-slot="7"] { --x: 0; --y: 389; --w: 132; --h: 194; }
+.card-album [data-album-slot="8"] { --x: 370; --y: 389; --w: 140; --h: 194; }
+.card-album-empty { font-size: 15px; }
+.card-footer { min-height: calc(178 * var(--u)); padding: calc(48 * var(--u)) calc(22 * var(--u)); color: #f8d9e1; font-size: calc(42.67 * var(--u)); font-style: italic; }
+
+@container (max-width: 430px) {
+  .card-rsvp-break { display: none; }
+  .card-rsvp .rsvp-form :is(input, textarea)::placeholder { font-size: 12px; }
+  .card-rsvp .card-select select:invalid { font-size: 12px; }
+}
+
+@media (forced-colors: active) {
+  .card-event h1 { background: none; color: CanvasText; }
+  .card-calendar-grid [aria-current="date"] { outline: 1px solid CanvasText; }
+}
+
