@@ -2,6 +2,7 @@
 /.next/
 /data/
 /.env*
+/env.local
 !/.env.example
 /next-env.d.ts
 *.tsbuildinfo
