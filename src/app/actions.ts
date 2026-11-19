@@ -1,10 +1,12 @@
 "use server";
 
 import { db } from "@/lib/db";
+import { isFrontendOnly } from "@/lib/invitation";
 
 export type ReplyResult = { kind: "idle" | "error" | "success"; message: string };
 
 export async function submitReply(_previous: ReplyResult, fields: FormData): Promise<ReplyResult> {
+  if (isFrontendOnly()) return { kind: "error", message: "Tính năng xác nhận tham dự sẽ mở sau." };
   const name = String(fields.get("name") ?? "").trim();
   const message = String(fields.get("message") ?? "").trim();
   const attendance = fields.get("attendance");

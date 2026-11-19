@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { ArrowUpRight, GraduationCap, Images, LogOut, MessageSquare, PenLine } from "lucide-react";
 import { isAdmin, isConfigured } from "@/lib/auth";
 import { getInvitation, getReplies } from "@/lib/db";
-import { eventZone, fieldLimits, type Invitation } from "@/lib/invitation";
+import { eventZone, fieldLimits, isFrontendOnly, type Invitation } from "@/lib/invitation";
 import { addPhoto, login, logout, removePhoto, replaceCover, saveContent } from "./actions";
 
 export const metadata: Metadata = {
   title: "Quản trị thiệp mời",
   robots: { index: false, follow: false },
 };
+export const dynamic = "force-dynamic";
 
 const notices: Record<string, string> = {
   "login-error": "Mật khẩu chưa đúng.",
@@ -59,6 +61,7 @@ function UploadForm({ action, label }: { action: (formData: FormData) => Promise
 }
 
 export default async function AdminPage({ searchParams }: PageProps<"/admin">) {
+  if (isFrontendOnly()) notFound();
   const status = (await searchParams).status;
   const message = typeof status === "string" && Object.hasOwn(notices, status) ? notices[status] : "";
   const isError = typeof status === "string" && status.endsWith("-error");

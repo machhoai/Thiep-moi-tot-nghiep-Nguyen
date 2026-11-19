@@ -16,6 +16,25 @@ export const initialInvitation = {
 
 export type Invitation = typeof initialInvitation;
 export type Photo = { id: string; src: string; alt: string };
+export const defaultCover: Photo = {
+  id: "original",
+  src: "/assets/images/my-nguyen.webp",
+  alt: "Mỹ Nguyên trong lễ phục tốt nghiệp với bó hoa hồng",
+};
+export const defaultAlbum: Photo[] = [
+  "Mỹ Nguyên tạo dáng trước bảng xanh", "Kỷ niệm trong bộ quân phục",
+  "Mỹ Nguyên trong đồng phục học sinh", "Mỹ Nguyên thuở bé",
+  "Mỹ Nguyên trong tà áo dài trắng", "Mỹ Nguyên trong lớp học",
+  "Mỹ Nguyên trong lễ phục tốt nghiệp", "Mỹ Nguyên bên ô cửa sổ",
+].map((alt, index) => {
+  const number = String(index + 1).padStart(2, "0");
+  return { id: `album-${number}`, src: `/assets/images/album/${number}.webp`, alt };
+});
+
+export function isFrontendOnly() {
+  return process.env.INVITATION_FRONTEND_ONLY === "1";
+}
+
 export type Reply = {
   id: number;
   name: string;

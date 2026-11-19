@@ -2,12 +2,13 @@ import "server-only";
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { isFrontendOnly } from "./invitation";
 
 export const sessionCookie = "nguyen_admin";
 export const sessionAge = 60 * 60 * 8;
 
 export function isConfigured() {
-  return (process.env.ADMIN_PASSWORD?.length ?? 0) >= 12
+  return !isFrontendOnly() && (process.env.ADMIN_PASSWORD?.length ?? 0) >= 12
     && (process.env.ADMIN_SESSION_SECRET?.length ?? 0) >= 32;
 }
 

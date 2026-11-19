@@ -2,7 +2,7 @@ import "server-only";
 import { mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { initialInvitation, type Invitation, type Photo, type Reply } from "./invitation";
+import { defaultAlbum, defaultCover, initialInvitation, isFrontendOnly, type Invitation, type Photo, type Reply } from "./invitation";
 
 let connection: DatabaseSync | undefined;
 
@@ -35,16 +35,7 @@ export function db() {
     if (inserted.changes) {
       database.prepare("INSERT INTO invitation VALUES (1, ?)").run(JSON.stringify(initialInvitation));
       const insert = database.prepare("INSERT INTO photos (id, role, src, alt) VALUES (?, 'gallery', ?, ?)");
-      const descriptions = [
-        "Mỹ Nguyên tạo dáng trước bảng xanh", "Kỷ niệm trong bộ quân phục",
-        "Mỹ Nguyên trong đồng phục học sinh", "Mỹ Nguyên thuở bé",
-        "Mỹ Nguyên trong tà áo dài trắng", "Mỹ Nguyên trong lớp học",
-        "Mỹ Nguyên trong lễ phục tốt nghiệp", "Mỹ Nguyên bên ô cửa sổ",
-      ];
-      descriptions.forEach((alt, index) => {
-        const number = String(index + 1).padStart(2, "0");
-        insert.run(`album-${number}`, `/assets/images/album/${number}.webp`, alt);
-      });
+      for (const { id, src, alt } of defaultAlbum) insert.run(id, src, alt);
     }
     const artworkCopy = database.prepare("INSERT OR IGNORE INTO migrations VALUES ('canva-default-copy')").run();
     if (artworkCopy.changes && !inserted.changes) {
@@ -69,13 +60,16 @@ function photo(row: PhotoRow): Photo {
 }
 
 export function getInvitation() {
+  if (isFrontendOnly()) {
+    return { content: initialInvitation, cover: defaultCover, album: defaultAlbum };
+  }
   const store = db();
   const entry = store.prepare("SELECT content FROM invitation WHERE id = 1").get() as { content: string };
   const cover = store.prepare("SELECT id, src, alt FROM photos WHERE role = 'cover'").get() as PhotoRow | undefined;
   const album = store.prepare("SELECT id, src, alt FROM photos WHERE role = 'gallery' ORDER BY position").all() as PhotoRow[];
   return {
     content: { ...initialInvitation, ...JSON.parse(entry.content) } as Invitation,
-    cover: cover ? photo(cover) : { id: "original", src: "/assets/images/my-nguyen.webp", alt: "Mỹ Nguyên trong lễ phục tốt nghiệp với bó hoa hồng" },
+    cover: cover ? photo(cover) : defaultCover,
     album: album.map(photo),
   };
 }
